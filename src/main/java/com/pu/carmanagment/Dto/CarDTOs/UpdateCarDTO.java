@@ -1,4 +1,4 @@
-package com.pu.carmanagment.Dto;
+package com.pu.carmanagment.Dto.CarDTOs;
 
 import com.pu.carmanagment.Entity.Garage;
 import jakarta.persistence.*;
@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CarDTO {
+public class UpdateCarDTO {
 
 
     @Id
@@ -27,5 +27,5 @@ public class CarDTO {
     private String licensePlate;
 
     @OneToMany(mappedBy = "garageid")
-    private List<Garage> garages;
+    private List<Garage> garageIds;
 }

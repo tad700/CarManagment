@@ -1,10 +1,12 @@
 package com.pu.carmanagment.Service.Impl;
 
+import com.pu.carmanagment.Dto.CarDTOs.CreateCarDTO;
+import com.pu.carmanagment.Dto.CarDTOs.UpdateCarDTO;
 import com.pu.carmanagment.Entity.Car;
 
+import com.pu.carmanagment.Mapper.CarMapper;
 import com.pu.carmanagment.Repository.CarRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.pu.carmanagment.Service.CarService;
 
@@ -24,14 +26,14 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Car addCar(Car car) {
-        Car savedCar = new Car(car.getId(),
+    public CreateCarDTO addCar(CreateCarDTO car) {
+        CreateCarDTO savedCar = new CreateCarDTO(car.getId(),
                 car.getMake(), car.getModel(),
                 car.getProductionYear(),
                 car.getLicensePlate(),
-                car.getGarages());
-
-        carRepository.save(savedCar);
+                car.getGarageIds());
+        Car carToSave = CarMapper.mapToCar(savedCar);
+        carRepository.save(carToSave);
         return savedCar;
 
 
@@ -49,15 +51,16 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Car updateCar(Long id, Car updatedCar) {
+    public UpdateCarDTO updateCar(Long id, UpdateCarDTO updatedCar) {
         Car car = carRepository.findCarById(id);
         car.setMake(updatedCar.getMake());
         car.setModel(updatedCar.getModel());
         car.setProductionYear(updatedCar.getProductionYear());
         car.setLicensePlate(car.getLicensePlate());
-        car.setGarages(updatedCar.getGarages());
-
-        return carRepository.save(car);
+        car.setGarages(updatedCar.getGarageIds());
+        carRepository.save(car);
+        return CarMapper.mapToUpdateCarDTO(car);
     }
+
 
 }

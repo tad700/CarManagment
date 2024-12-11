@@ -1,4 +1,4 @@
-package com.pu.carmanagment.Dto;
+package com.pu.carmanagment.Dto.GarageDTOs;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GarageDTO {
+public class CreateGarageDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "garageId")

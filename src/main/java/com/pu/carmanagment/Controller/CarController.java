@@ -1,5 +1,7 @@
 package com.pu.carmanagment.Controller;
 
+import com.pu.carmanagment.Dto.CarDTOs.CreateCarDTO;
+import com.pu.carmanagment.Dto.CarDTOs.UpdateCarDTO;
 import com.pu.carmanagment.Entity.Car;
 
 import com.pu.carmanagment.Service.CarService;
@@ -26,8 +28,8 @@ public class CarController {
         return carService.findCarById(id);
     }
     @PostMapping("add")
-    public ResponseEntity<Car> createCar(@RequestBody Car car){
-        Car car1 = carService.addCar(car);
+    public ResponseEntity<CreateCarDTO> createCar(@RequestBody CreateCarDTO car){
+        CreateCarDTO car1 = carService.addCar(car);
         return new ResponseEntity<>(car1, HttpStatus.CREATED);
     }
     @DeleteMapping("delete/{id}")
@@ -40,8 +42,8 @@ public class CarController {
         return new ResponseEntity<>(cars,HttpStatus.OK);
     }
     @PutMapping("update/{id}")
-    public ResponseEntity<Car> updateGarage(@PathVariable Long id, @RequestBody Car car){
-        Car car1 = carService.updateCar(id,car);
+    public ResponseEntity<UpdateCarDTO> updateGarage(@PathVariable Long id, @RequestBody UpdateCarDTO car){
+        UpdateCarDTO car1 = carService.updateCar(id,car);
         return ResponseEntity.ok(car);
     }
 
