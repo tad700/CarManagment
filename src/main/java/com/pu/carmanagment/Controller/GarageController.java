@@ -31,8 +31,8 @@ public class GarageController {
                 return new ResponseEntity<>(garageService.listALl(),HttpStatus.OK);
             }
             @PostMapping("add")
-            public ResponseEntity<CreateGarageDTO> addGarage(@RequestBody Garage garage){
-             return new ResponseEntity<>(garageService.addGarage(garage),HttpStatus.CREATED);
+            public ResponseEntity<CreateGarageDTO> addGarage(@RequestBody CreateGarageDTO garage){
+             return new ResponseEntity<>(garageService.createGarage(garage),HttpStatus.CREATED);
             }
     @PutMapping("update/{id}")
     public ResponseEntity<UpdateGarageDTO> updateGarage(@PathVariable Long id, @RequestBody Garage garage){

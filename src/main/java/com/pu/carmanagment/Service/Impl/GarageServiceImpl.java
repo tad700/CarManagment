@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,7 +33,7 @@ public class GarageServiceImpl implements GarageService {
     }
 
     @Override
-    public CreateGarageDTO addGarage(Garage garage) {
+    public CreateGarageDTO createGarage(CreateGarageDTO garage) {
        Garage savedGarage = new Garage(garage.getGarageid(),
                garage.getName(),
                garage.getLocation(),
@@ -42,7 +41,7 @@ public class GarageServiceImpl implements GarageService {
                garage.getCapacity());
         garageRepository.save(savedGarage);
 
-        return  GarageMapper.mapToCreateGarageDTO(garage);
+        return  GarageMapper.mapToCreateGarageDTO(savedGarage);
 
     }
 

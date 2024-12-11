@@ -46,7 +46,9 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public void deleteCar(Long id) {
-        Car carToDelete = carRepository.findCarById(id);
+        Car carToDelete = carRepository.findById(id).orElseThrow(
+                ()-> new RuntimeException("car is not found with id"+id)
+        );
         carRepository.delete(carToDelete);
     }
 
@@ -62,7 +64,9 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public UpdateCarDTO updateCar(Long id, UpdateCarDTO updatedCar) {
-        Car car = carRepository.findCarById(id);
+        Car car = carRepository.findById(id).orElseThrow(
+                ()-> new RuntimeException("car is not found with id"+id)
+        );
         car.setMake(updatedCar.getMake());
         car.setModel(updatedCar.getModel());
         car.setProductionYear(updatedCar.getProductionYear());
