@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface CarService {
     ResponseCarDTO findCarById(Long id);
-    List<ResponseCarDTO> listAll();
+    List<ResponseCarDTO> getAll();
     CreateCarDTO addCar(CreateCarDTO car);
     UpdateCarDTO updateCar(Long id, UpdateCarDTO updatedCar);
 

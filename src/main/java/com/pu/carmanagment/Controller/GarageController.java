@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/garage")
+@CrossOrigin("http://localhost:3002")
+@RequestMapping("garages")
 public class GarageController {
 
     GarageService garageService;
@@ -26,20 +27,20 @@ public class GarageController {
             public ResponseEntity<ResponseGarageDTO> getGarage(@PathVariable Long id){
                 return new ResponseEntity<>(garageService.findGarageById(id), HttpStatus.OK);
             }
-            @GetMapping("listAll")
+            @GetMapping
             public ResponseEntity<List<ResponseGarageDTO>> getAll(){
                 return new ResponseEntity<>(garageService.listALl(),HttpStatus.OK);
             }
-            @PostMapping("add")
+            @PostMapping
             public ResponseEntity<CreateGarageDTO> addGarage(@RequestBody CreateGarageDTO garage){
              return new ResponseEntity<>(garageService.createGarage(garage),HttpStatus.CREATED);
             }
-    @PutMapping("update/{id}")
+    @PutMapping("{id}")
     public ResponseEntity<UpdateGarageDTO> updateGarage(@PathVariable Long id, @RequestBody Garage garage){
                 UpdateGarageDTO garage1 = garageService.updateGarage(id,garage);
                 return ResponseEntity.ok(garage1);
     }
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("{id}")
     public void deleteGarage(Long id){
                 garageService.deleteGarage(id);
     }

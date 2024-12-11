@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin("http://localhost:3002")
 @RequestMapping("/maintenance")
 @AllArgsConstructor
 public class MaintenanceController {
@@ -20,21 +21,21 @@ public class MaintenanceController {
     public ResponseEntity<ResponseMaintenanceDTO> getMaintenance (@PathVariable Long id){
         return new ResponseEntity<>(maintenanceService.findGarageById(id), HttpStatus.OK);
     }
-    @GetMapping("listAll")
+    @GetMapping
     public ResponseEntity<List<ResponseMaintenanceDTO>> listAll(){
         return new ResponseEntity<>(maintenanceService.findAll(),HttpStatus.OK);
     }
-    @PostMapping("add")
+    @PostMapping
     public ResponseEntity<CreateMaintenanceDTO> createMaintenance(@RequestBody CreateMaintenanceDTO maintenance){
         return new ResponseEntity<>(maintenanceService.createMaintenance(maintenance),HttpStatus.CREATED);
     }
-    @PutMapping("update/{id}")
+    @PutMapping("{id}")
     public ResponseEntity<UpdateMaintenanceDTO> updateMaintenance(@PathVariable Long id,UpdateMaintenanceDTO updateMaintenanceDTO){
        UpdateMaintenanceDTO updated =  maintenanceService.updateMaintenance(id,updateMaintenanceDTO);
         return ResponseEntity.ok(updated);
 
     }
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<String> deleteMaintenance(Long id){
         maintenanceService.deleteMaintenance(id);
         return new ResponseEntity<>("Succesfully Deleted maintenance with id" + id,HttpStatus.OK);

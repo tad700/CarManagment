@@ -53,7 +53,7 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public List<ResponseCarDTO> listAll() {
+    public List<ResponseCarDTO> getAll() {
         List<Car> cars = carRepository.findAll();
 
         return cars.stream()

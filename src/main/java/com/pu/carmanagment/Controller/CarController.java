@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/cars")
+@CrossOrigin("http://localhost:3002")
+@RequestMapping("cars")
 public class CarController {
 
     CarService carService;
@@ -28,21 +29,20 @@ public class CarController {
     public ResponseCarDTO getCarById(@PathVariable  Long id){
         return carService.findCarById(id);
     }
-    @PostMapping("add")
+    @PostMapping
     public ResponseEntity<CreateCarDTO> createCar(@RequestBody CreateCarDTO car){
         CreateCarDTO car1 = carService.addCar(car);
         return new ResponseEntity<>(car1, HttpStatus.CREATED);
     }
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("{id}")
     public void deleteCar(@PathVariable Long id){
         carService.deleteCar(id);
     }
-    @GetMapping("listAll")
-    public ResponseEntity<List<ResponseCarDTO>> listAll(){
-        List<ResponseCarDTO> cars = carService.listAll();
-        return new ResponseEntity<>(cars,HttpStatus.OK);
+    @GetMapping()
+    public ResponseEntity<List<ResponseCarDTO>> getAll(){
+        return new ResponseEntity<>(carService.getAll(),HttpStatus.OK);
     }
-    @PutMapping("update/{id}")
+    @PutMapping("{id}")
     public ResponseEntity<UpdateCarDTO> updateGarage(@PathVariable Long id, @RequestBody UpdateCarDTO car){
         UpdateCarDTO car1 = carService.updateCar(id,car);
         return ResponseEntity.ok(car);
