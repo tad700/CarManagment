@@ -1,9 +1,11 @@
 package com.pu.carmanagment.Service.Impl;
 
 import com.pu.carmanagment.Dto.CarDTOs.CreateCarDTO;
+import com.pu.carmanagment.Dto.CarDTOs.ResponseCarDTO;
 import com.pu.carmanagment.Dto.CarDTOs.UpdateCarDTO;
 import com.pu.carmanagment.Entity.Car;
 
+import com.pu.carmanagment.Exception.ResourceNotFoundException;
 import com.pu.carmanagment.Mapper.CarMapper;
 import com.pu.carmanagment.Repository.CarRepository;
 import lombok.AllArgsConstructor;
@@ -11,16 +13,19 @@ import org.springframework.stereotype.Service;
 import com.pu.carmanagment.Service.CarService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class CarServiceImpl implements CarService {
 
-   private CarRepository carRepository;
+    private CarRepository carRepository;
 
     @Override
-    public Car findCarById(Long id) {
-        return carRepository.findCarById(id);
+    public ResponseCarDTO findCarById(Long id) {
+        Car car = carRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Car is not found with id: " + id));
+        return CarMapper.mapToResponseCarDTO(car);
 
 
     }
@@ -46,8 +51,13 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public List<Car> listAll() {
-        return carRepository.findAll();
+    public List<ResponseCarDTO> listAll() {
+        List<Car> cars = carRepository.findAll();
+
+        return cars.stream()
+                .map(CarMapper::mapToResponseCarDTO)
+                .collect(Collectors.toList());
+
     }
 
     @Override

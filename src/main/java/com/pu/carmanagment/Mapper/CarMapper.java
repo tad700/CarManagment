@@ -1,6 +1,7 @@
 package com.pu.carmanagment.Mapper;
 
 import com.pu.carmanagment.Dto.CarDTOs.CreateCarDTO;
+import com.pu.carmanagment.Dto.CarDTOs.ResponseCarDTO;
 import com.pu.carmanagment.Dto.CarDTOs.UpdateCarDTO;
 import com.pu.carmanagment.Entity.Car;
 
@@ -19,6 +20,16 @@ public class CarMapper {
         }
     public static UpdateCarDTO mapToUpdateCarDTO(Car car) {
         return new UpdateCarDTO(
+                car.getId(),
+                car.getMake(),
+                car.getModel(),
+                car.getProductionYear(),
+                car.getLicensePlate(),
+                car.getGarages()
+        );
+    }
+    public static ResponseCarDTO mapToResponseCarDTO(Car car) {
+        return new ResponseCarDTO(
                 car.getId(),
                 car.getMake(),
                 car.getModel(),

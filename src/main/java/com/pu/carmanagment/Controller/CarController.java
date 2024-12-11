@@ -1,6 +1,7 @@
 package com.pu.carmanagment.Controller;
 
 import com.pu.carmanagment.Dto.CarDTOs.CreateCarDTO;
+import com.pu.carmanagment.Dto.CarDTOs.ResponseCarDTO;
 import com.pu.carmanagment.Dto.CarDTOs.UpdateCarDTO;
 import com.pu.carmanagment.Entity.Car;
 
@@ -24,7 +25,7 @@ public class CarController {
 
 
     @GetMapping("/{id}")
-    public Car getCarById(@PathVariable  Long id){
+    public ResponseCarDTO getCarById(@PathVariable  Long id){
         return carService.findCarById(id);
     }
     @PostMapping("add")
@@ -37,8 +38,8 @@ public class CarController {
         carService.deleteCar(id);
     }
     @GetMapping("listAll")
-    public ResponseEntity<List> listAll(){
-        List<Car> cars = carService.listAll();
+    public ResponseEntity<List<ResponseCarDTO>> listAll(){
+        List<ResponseCarDTO> cars = carService.listAll();
         return new ResponseEntity<>(cars,HttpStatus.OK);
     }
     @PutMapping("update/{id}")
