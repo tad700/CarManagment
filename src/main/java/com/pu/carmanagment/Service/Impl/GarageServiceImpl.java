@@ -55,7 +55,9 @@ public class GarageServiceImpl implements GarageService {
     public List<ResponseGarageDTO> listALl() {
         List<Garage> garages= garageRepository.findAll();
 
-        return garages.stream().map(GarageMapper::mapToResponseGarageDTO).collect(Collectors.toList());
+        return garages.stream()
+                .map(GarageMapper::mapToResponseGarageDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
