@@ -83,13 +83,14 @@ public class GarageController {
 
 
 
-             @Operation(summary = "Delete garage", description = "Deletes garage from the database by Id")
+    @DeleteMapping("{id}")
+    @Operation(summary = "Delete garage", description = "Deletes garage from the database by Id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success"),
             @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "404", description = "Resource Not Found")
     })
-            public void deleteGarage(Long id){
+            public void deleteGarage(@PathVariable  Long id){
                 garageService.deleteGarage(id);
     }
 }
