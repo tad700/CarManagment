@@ -26,6 +26,6 @@ public class ResponseCarDTO {
 
     private String licensePlate;
 
-    @OneToMany(mappedBy = "garageid")
+    @OneToMany(mappedBy = "id")
     private List<Garage> garages;
 }

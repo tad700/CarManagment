@@ -15,7 +15,6 @@ import lombok.Setter;
 public class Garage {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "garageId")
     private Long id;
     private String name;
     private String location;

@@ -26,6 +26,6 @@ public class UpdateCarDTO {
 
     private String licensePlate;
 
-    @OneToMany(mappedBy = "garageid")
+    @OneToMany(mappedBy = "id")
     private List<Garage> garages;
 }

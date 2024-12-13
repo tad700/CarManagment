@@ -72,7 +72,7 @@ public class CarServiceImpl implements CarService {
         car.setMake(updatedCar.getMake());
         car.setModel(updatedCar.getModel());
         car.setProductionYear(updatedCar.getProductionYear());
-        car.setLicensePlate(car.getLicensePlate());
+        car.setLicensePlate(updatedCar.getLicensePlate());
         car.setGarages(updatedCar.getGarages());
         carRepository.save(car);
         return CarMapper.mapToUpdateCarDTO(car);
