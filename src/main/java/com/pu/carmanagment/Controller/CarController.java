@@ -3,7 +3,6 @@ package com.pu.carmanagment.Controller;
 import com.pu.carmanagment.Dto.CarDTOs.CreateCarDTO;
 import com.pu.carmanagment.Dto.CarDTOs.ResponseCarDTO;
 import com.pu.carmanagment.Dto.CarDTOs.UpdateCarDTO;
-import com.pu.carmanagment.Entity.Car;
 
 import com.pu.carmanagment.Service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,19 +25,19 @@ public class CarController {
 
 
     @GetMapping("/{id}")
-    public ResponseCarDTO getCarById(@PathVariable  Long id){
-        return carService.findCarById(id);
+    public ResponseEntity<ResponseCarDTO> getCarById(@PathVariable  Long id){
+
+        return new ResponseEntity<>(carService.findCarById(id),HttpStatus.OK);
     }
     @PostMapping
     public ResponseEntity<CreateCarDTO> createCar(@RequestBody CreateCarDTO car){
-        CreateCarDTO car1 = carService.addCar(car);
-        return new ResponseEntity<>(car1, HttpStatus.CREATED);
+        return new ResponseEntity<>(carService.createCar(car), HttpStatus.OK);
     }
     @DeleteMapping("{id}")
     public void deleteCar(@PathVariable Long id){
         carService.deleteCar(id);
     }
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<List<ResponseCarDTO>> getAll(){
         return new ResponseEntity<>(carService.getAll(),HttpStatus.OK);
     }

@@ -13,6 +13,6 @@ public interface GarageService {
     CreateGarageDTO createGarage(CreateGarageDTO garage);
     void deleteGarage(Long id);
     List<ResponseGarageDTO> listALl();
-    UpdateGarageDTO updateGarage(Long id, Garage updatedGarage);
+    UpdateGarageDTO updateGarage(Long id, UpdateGarageDTO updatedGarage);
 
 }

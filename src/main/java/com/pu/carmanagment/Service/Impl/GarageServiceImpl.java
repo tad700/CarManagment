@@ -34,7 +34,7 @@ public class GarageServiceImpl implements GarageService {
 
     @Override
     public CreateGarageDTO createGarage(CreateGarageDTO garage) {
-       Garage savedGarage = new Garage(garage.getGarageid(),
+       Garage savedGarage = new Garage(garage.getId(),
                garage.getName(),
                garage.getLocation(),
                garage.getCity(),
@@ -47,8 +47,9 @@ public class GarageServiceImpl implements GarageService {
 
     @Override
     public void deleteGarage(Long id) {
-       Garage garage = garageRepository.findById(id).orElseThrow(
+       Garage garageToDelete = garageRepository.findById(id).orElseThrow(
                ()-> new ResourceNotFoundException("Garage is not found with id "+ id));
+       garageRepository.delete(garageToDelete);
     }
 
     @Override
@@ -61,8 +62,9 @@ public class GarageServiceImpl implements GarageService {
     }
 
     @Override
-    public UpdateGarageDTO updateGarage(Long id, Garage updatedGarage) {
-        Garage garage = garageRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Garage is not found with id "+id));
+    public UpdateGarageDTO updateGarage(Long id, UpdateGarageDTO updatedGarage) {
+        Garage garage = garageRepository.findById(id).orElseThrow(
+                ()-> new ResourceNotFoundException("Garage is not found with id "+id));
         garage.setName(updatedGarage.getName());
         garage.setLocation(updatedGarage.getLocation());
         garage.setCity(updatedGarage.getCity());

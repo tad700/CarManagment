@@ -8,7 +8,6 @@ import java.util.List;
 
 @Entity
 @Getter
-@Builder
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,6 +27,6 @@ public class Car {
 
     private String licensePlate;
 
-    @OneToMany(mappedBy = "garageid")
+    @OneToMany(mappedBy = "id")
     private List<Garage> garages;
 }

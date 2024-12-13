@@ -19,29 +19,34 @@ public class GarageController {
 
     GarageService garageService;
 
-            @Autowired
+    @Autowired
     GarageController(GarageService garageService){
         this.garageService = garageService;
             }
+
             @GetMapping("{id}")
             public ResponseEntity<ResponseGarageDTO> getGarage(@PathVariable Long id){
                 return new ResponseEntity<>(garageService.findGarageById(id), HttpStatus.OK);
             }
+
             @GetMapping
             public ResponseEntity<List<ResponseGarageDTO>> getAll(){
                 return new ResponseEntity<>(garageService.listALl(),HttpStatus.OK);
             }
+
             @PostMapping
             public ResponseEntity<CreateGarageDTO> addGarage(@RequestBody CreateGarageDTO garage){
-             return new ResponseEntity<>(garageService.createGarage(garage),HttpStatus.CREATED);
+             return new ResponseEntity<>(garageService.createGarage(garage),HttpStatus.OK);
             }
-    @PutMapping("{id}")
-    public ResponseEntity<UpdateGarageDTO> updateGarage(@PathVariable Long id, @RequestBody Garage garage){
+
+            @PutMapping("{id}")
+            public ResponseEntity<UpdateGarageDTO> updateGarage(@PathVariable Long id, @RequestBody UpdateGarageDTO garage){
                 UpdateGarageDTO garage1 = garageService.updateGarage(id,garage);
                 return ResponseEntity.ok(garage1);
-    }
-    @DeleteMapping("{id}")
-    public void deleteGarage(Long id){
+            }
+
+            @DeleteMapping("{id}")
+            public void deleteGarage(Long id){
                 garageService.deleteGarage(id);
     }
 }

@@ -46,7 +46,7 @@ public class CarMapper {
                 updateCarDto.getModel(),
                 updateCarDto.getProductionYear(),
                 updateCarDto.getLicensePlate(),
-                updateCarDto.getGarageIds()
+                updateCarDto.getGarages()
         );
     }
 }

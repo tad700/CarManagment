@@ -14,7 +14,7 @@ public class ResponseGarageDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "garageId")
-    private Long garageid;
+    private Long id;
     private String name;
     private String location;
     private String city;

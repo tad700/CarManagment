@@ -27,5 +27,5 @@ public class CreateCarDTO {
     private String licensePlate;
 
     @OneToMany(mappedBy = "garageid")
-    private List<Garage> garageIds;
+    private List<Garage> garages;
 }

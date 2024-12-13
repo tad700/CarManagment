@@ -11,7 +11,7 @@ public class GarageMapper {
 
     public static CreateGarageDTO mapToCreateGarageDTO(Garage garage) {
         return new CreateGarageDTO(
-                garage.getGarageid(),
+                garage.getId(),
                 garage.getName(),
                 garage.getLocation(),
                 garage.getCity(),
@@ -20,7 +20,7 @@ public class GarageMapper {
     }
     public static UpdateGarageDTO mapToUpdateGarageDTO(Garage garage) {
         return new UpdateGarageDTO(
-                garage.getGarageid(),
+                garage.getId(),
                 garage.getName(),
                 garage.getLocation(),
                 garage.getCity(),
@@ -29,7 +29,7 @@ public class GarageMapper {
     }
     public static ResponseGarageDTO mapToResponseGarageDTO(Garage garage) {
         return new ResponseGarageDTO(
-                garage.getGarageid(),
+                garage.getId(),
                 garage.getName(),
                 garage.getLocation(),
                 garage.getCity(),
@@ -38,7 +38,7 @@ public class GarageMapper {
     }
     public static Garage mapToGarage(CreateGarageDTO createGarageDTO) {
         return new Garage(
-                createGarageDTO.getGarageid(),
+                createGarageDTO.getId(),
                 createGarageDTO.getName(),
                 createGarageDTO.getLocation(),
                 createGarageDTO.getCity(),

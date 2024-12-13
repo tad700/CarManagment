@@ -31,15 +31,17 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public CreateCarDTO addCar(CreateCarDTO car) {
-        CreateCarDTO savedCar = new CreateCarDTO(car.getId(),
-                car.getMake(), car.getModel(),
+    public CreateCarDTO createCar(CreateCarDTO car) {
+        Car savedCar = new Car(car.getId(),
+                car.getMake(),
+                car.getModel(),
                 car.getProductionYear(),
                 car.getLicensePlate(),
-                car.getGarageIds());
-        Car carToSave = CarMapper.mapToCar(savedCar);
-        carRepository.save(carToSave);
-        return savedCar;
+                car.getGarages());
+        carRepository.save(savedCar);
+
+
+        return CarMapper.mapToCreateCarDTO(savedCar);
 
 
     }
@@ -71,7 +73,7 @@ public class CarServiceImpl implements CarService {
         car.setModel(updatedCar.getModel());
         car.setProductionYear(updatedCar.getProductionYear());
         car.setLicensePlate(car.getLicensePlate());
-        car.setGarages(updatedCar.getGarageIds());
+        car.setGarages(updatedCar.getGarages());
         carRepository.save(car);
         return CarMapper.mapToUpdateCarDTO(car);
     }
