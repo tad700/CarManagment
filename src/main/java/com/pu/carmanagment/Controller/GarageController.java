@@ -56,7 +56,6 @@ public class GarageController {
             @ApiResponses(value = {
                     @ApiResponse(responseCode = "200", description = "Success"),
                     @ApiResponse(responseCode = "400", description = "Bad request"),
-                    @ApiResponse(responseCode = "404", description = "Resource Not Found")
             })
             public ResponseEntity<CreateGarageDTO> addGarage(@RequestBody CreateGarageDTO garage){
              return new ResponseEntity<>(garageService.createGarage(garage),HttpStatus.OK);
@@ -66,7 +65,6 @@ public class GarageController {
     @Operation(summary = "Update an existing garage", description = "Updates the details of a garage by its ID.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success"),
-            @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "404", description = "Resource Not Found")
     })
     public ResponseEntity<UpdateGarageDTO> updateGarage(
