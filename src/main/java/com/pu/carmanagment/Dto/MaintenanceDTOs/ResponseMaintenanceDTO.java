@@ -28,4 +28,6 @@ public class ResponseMaintenanceDTO {
     private Long garageId;
     private String garageName;
     LocalDate scheduledDate;
+
+
 }

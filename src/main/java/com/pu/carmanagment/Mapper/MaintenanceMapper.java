@@ -25,10 +25,8 @@ public class MaintenanceMapper {
         return new CreateMaintenanceDTO(
                 maintenance.getId(),
                 maintenance.getCarId(),
-                maintenance.getCarName(),
                 maintenance.getServiceType(),
                 maintenance.getGarageId(),
-                maintenance.getGarageName(),
                 maintenance.getScheduledDate()
 
         );

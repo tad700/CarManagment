@@ -18,16 +18,10 @@ public class UpdateMaintenanceDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-
-    private Long carId ;
+    private Long carId;
     private String carName;
-
     private String serviceType;
-
-
     private Long garageId;
     private String garageName;
-
     LocalDate scheduledDate;
 }

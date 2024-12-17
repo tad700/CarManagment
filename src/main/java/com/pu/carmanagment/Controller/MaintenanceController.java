@@ -25,9 +25,9 @@ public class MaintenanceController {
     public ResponseEntity<List<ResponseMaintenanceDTO>> listAll(){
         return new ResponseEntity<>(maintenanceService.findAll(),HttpStatus.OK);
     }
-    @PostMapping
+    @PostMapping()
     public ResponseEntity<CreateMaintenanceDTO> createMaintenance(@RequestBody CreateMaintenanceDTO maintenance){
-        return new ResponseEntity<>(maintenanceService.createMaintenance(maintenance),HttpStatus.CREATED);
+        return new ResponseEntity<>(maintenanceService.createMaintenance(maintenance.getCarId(),maintenance.getGarageId(),maintenance),HttpStatus.OK);
     }
     @PutMapping("{id}")
     public ResponseEntity<UpdateMaintenanceDTO> updateMaintenance(@PathVariable Long id,UpdateMaintenanceDTO updateMaintenanceDTO){

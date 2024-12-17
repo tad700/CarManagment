@@ -15,21 +15,26 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class Maintenance {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Transient
+    private Car car;
 
-
-    private Long carId ;
+    private Long carId;
     private String carName;
 
-    private String serviceType;
-
-
+    @Transient
+    private Garage garage;
     private Long garageId;
     private String garageName;
 
+    private String serviceType;
+
     LocalDate scheduledDate;
 
+
+    public Maintenance(Long id, Long carId, String serviceType, Long garageId, LocalDate scheduledDate) {
+
+    }
 }
