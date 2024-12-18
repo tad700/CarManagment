@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin("http://localhost:3000/garages")
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/garages")
 public class GarageController {
 
