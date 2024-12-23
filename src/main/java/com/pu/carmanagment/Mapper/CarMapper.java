@@ -28,7 +28,7 @@ public class CarMapper {
                 car.getModel(),
                 car.getProductionYear(),
                 car.getLicensePlate(),
-                car.getGarages()
+                car.getGarages().stream().map(Garage::getId).collect(Collectors.toList())
         );
     }
     public static ResponseCarDTO mapToResponseCarDTO(Car car) {

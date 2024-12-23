@@ -59,6 +59,29 @@ public class CarServiceImpl implements CarService {
 
 
     }
+    @Override
+    public UpdateCarDTO updateCar(int id, UpdateCarDTO updatedCar) {
+        Car car = carRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Car is not found with id: " + id));
+        List<Integer> garageIdsList = updatedCar.getGarageIds();
+        List<Garage> garages = new ArrayList<>();
+        for(Integer garageId : garageIdsList){
+            Garage garage = garageRepository.findById(garageId).orElseThrow(
+                    ()-> new RuntimeException("Garage not found with id "+garageId)
+            );
+            garages.add(garage);
+        }
+        car.setMake(updatedCar.getMake());
+        car.setModel(updatedCar.getModel());
+        car.setProductionYear(updatedCar.getProductionYear());
+        car.setLicensePlate(updatedCar.getLicensePlate());
+        car.getGarages().clear();
+        car.getGarages().addAll(garages);
+
+
+        carRepository.save(car);
+        return CarMapper.mapToUpdateCarDTO(car);
+    }
 
     @Override
     public void deleteCar(int id) {
@@ -78,19 +101,7 @@ public class CarServiceImpl implements CarService {
 
     }
 
-    @Override
-    public UpdateCarDTO updateCar(int id, UpdateCarDTO updatedCar) {
-        Car car = carRepository.findById(id).orElseThrow(
-                ()-> new RuntimeException("car is not found with id"+id)
-        );
-        car.setMake(updatedCar.getMake());
-        car.setModel(updatedCar.getModel());
-        car.setProductionYear(updatedCar.getProductionYear());
-        car.setLicensePlate(updatedCar.getLicensePlate());
-        car.setGarages(updatedCar.getGarages());
-        carRepository.save(car);
-        return CarMapper.mapToUpdateCarDTO(car);
-    }
+
 
 
 }
