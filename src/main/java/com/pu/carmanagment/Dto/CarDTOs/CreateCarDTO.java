@@ -16,7 +16,7 @@ public class CreateCarDTO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     private String make;
 
@@ -26,6 +26,5 @@ public class CreateCarDTO {
 
     private String licensePlate;
 
-    @OneToMany(mappedBy = "id")
-    private List<Garage> garages;
+    private List<Integer> garageIds;
 }

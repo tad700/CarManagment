@@ -14,7 +14,7 @@ public class CreateGarageDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "garageId")
-    private Long id;
+    private int id;
     private String name;
     private String location;
     private String city;

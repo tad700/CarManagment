@@ -13,6 +13,9 @@ import com.pu.carmanagment.Service.MaintenanceService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,22 +27,45 @@ public class MaintenanceServiceImpl implements MaintenanceService {
    GarageRepository garageRepository;
 
     @Override
-    public ResponseMaintenanceDTO findGarageById(Long id) {
+    public ResponseMaintenanceDTO findGarageById(Integer id) {
         Maintenance newMaintenance = maintenanceRepository.findById(id).orElseThrow(
                 ()-> new ResourceNotFoundException("maintenance not found with id"+id));
         return MaintenanceMapper.mapToResponseMaintenanceDTO(newMaintenance);
     }
 
     @Override
-    public List<ResponseMaintenanceDTO> findAll() {
+    public List<ResponseMaintenanceDTO> getMaintenance(Integer carId, Integer garageId, YearMonth startDate, YearMonth endDate) {
+        List<ResponseMaintenanceDTO> maintenances = new ArrayList<>();
+        LocalDate start = startDate.atDay(1);
+        LocalDate end = endDate.atEndOfMonth();
+        List<Maintenance> allMaintenancesList=maintenanceRepository.findAll();
+
+        for(Maintenance maintenance : allMaintenancesList){
+            boolean matchesCriteria = (carId == null || carId.equals(maintenance.getCarId())) &&
+                    (garageId == null || garageId.equals(maintenance.getGarageId()));
+
+            if(matchesCriteria){
+                LocalDate scheduledDate=maintenance.getScheduledDate();
+                if(!scheduledDate.isBefore(start)&&!scheduledDate.isAfter(end)){
+                    ResponseMaintenanceDTO responseMaintenance = MaintenanceMapper.mapToResponseMaintenanceDTO(maintenance);
+                    maintenances.add(responseMaintenance);
+                }
+            }
+        }
+
+        return maintenances;
+    }
+
+/*    @Override
+    public List<ResponseMaintenanceDTO> getMaintenance() {
        List<Maintenance> maintenanceList = maintenanceRepository.findAll();
        return maintenanceList.stream()
                .map(MaintenanceMapper::mapToResponseMaintenanceDTO)
                .collect(Collectors.toList());
-    }
+    }*/
 
     @Override
-    public CreateMaintenanceDTO createMaintenance(Long carId, Long garageId, CreateMaintenanceDTO maintenance) {
+    public CreateMaintenanceDTO createMaintenance(Integer carId, Integer garageId, CreateMaintenanceDTO maintenance) {
         Car car = carRepository.findById(carId).orElseThrow(
                 ()-> new ResourceNotFoundException("car is not found with id"+carId)
         );
@@ -60,7 +86,7 @@ public class MaintenanceServiceImpl implements MaintenanceService {
     }
 
     @Override
-    public UpdateMaintenanceDTO updateMaintenance(Long id, UpdateMaintenanceDTO updatedMaintenance) {
+    public UpdateMaintenanceDTO updateMaintenance(Integer id, UpdateMaintenanceDTO updatedMaintenance) {
         Maintenance maintenance = maintenanceRepository.findById(id).orElseThrow(
                 ()-> new RuntimeException("maintenance is not found with id "+id)
         );
@@ -76,7 +102,7 @@ public class MaintenanceServiceImpl implements MaintenanceService {
     }
 
     @Override
-    public void deleteMaintenance(Long id) {
+    public void deleteMaintenance(Integer id) {
 
     }
 }

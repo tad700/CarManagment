@@ -7,6 +7,7 @@ import com.pu.carmanagment.Entity.Garage;
 import com.pu.carmanagment.Exception.ResourceNotFoundException;
 import com.pu.carmanagment.Mapper.GarageMapper;
 import com.pu.carmanagment.Repository.GarageRepository;
+import com.pu.carmanagment.Repository.MaintenanceRepository;
 import com.pu.carmanagment.Service.GarageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,13 +19,14 @@ import java.util.stream.Collectors;
 public class GarageServiceImpl implements GarageService {
 
     GarageRepository garageRepository;
+
     @Autowired
     GarageServiceImpl(GarageRepository garageRepository){
         this.garageRepository = garageRepository;
     }
 
     @Override
-    public ResponseGarageDTO findGarageById(Long id) {
+    public ResponseGarageDTO findGarageById(Integer id) {
 
         Garage garage = garageRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Garage is not found with id "+id));
@@ -34,11 +36,12 @@ public class GarageServiceImpl implements GarageService {
 
     @Override
     public CreateGarageDTO createGarage(CreateGarageDTO garage) {
-       Garage savedGarage = new Garage(garage.getId(),
-               garage.getName(),
-               garage.getLocation(),
-               garage.getCity(),
-               garage.getCapacity());
+       Garage savedGarage = new Garage();
+       savedGarage.setId(garage.getId());
+       savedGarage.setName(garage.getName());
+       savedGarage.setLocation(garage.getLocation());
+       savedGarage.setCity(garage.getCity());
+       savedGarage.setCapacity(garage.getCapacity());
         garageRepository.save(savedGarage);
 
         return  GarageMapper.mapToCreateGarageDTO(savedGarage);
@@ -46,7 +49,7 @@ public class GarageServiceImpl implements GarageService {
     }
 
     @Override
-    public void deleteGarage(Long id) {
+    public void deleteGarage(Integer id) {
        Garage garageToDelete = garageRepository.findById(id).orElseThrow(
                ()-> new ResourceNotFoundException("Garage is not found with id "+ id));
        garageRepository.delete(garageToDelete);
@@ -62,7 +65,7 @@ public class GarageServiceImpl implements GarageService {
     }
 
     @Override
-    public UpdateGarageDTO updateGarage(Long id, UpdateGarageDTO updatedGarage) {
+    public UpdateGarageDTO updateGarage(Integer id, UpdateGarageDTO updatedGarage) {
         Garage garage = garageRepository.findById(id).orElseThrow(
                 ()-> new ResourceNotFoundException("Garage is not found with id "+id));
         garage.setName(updatedGarage.getName());

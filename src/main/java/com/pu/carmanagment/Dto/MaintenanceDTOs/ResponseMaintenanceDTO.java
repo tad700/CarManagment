@@ -21,11 +21,11 @@ public class ResponseMaintenanceDTO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private Long carId;
+    private int id;
+    private int carId;
     private String carName;
     private String serviceType;
-    private Long garageId;
+    private int garageId;
     private String garageName;
     LocalDate scheduledDate;
 

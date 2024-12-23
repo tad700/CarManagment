@@ -9,12 +9,12 @@ import java.util.List;
 
 
 public interface CarService {
-    ResponseCarDTO findCarById(Long id);
+    ResponseCarDTO findCarById(int id);
     List<ResponseCarDTO> getAll();
     CreateCarDTO createCar(CreateCarDTO car);
-    UpdateCarDTO updateCar(Long id, UpdateCarDTO updatedCar);
+    UpdateCarDTO updateCar(int id, UpdateCarDTO updatedCar);
 
-    void deleteCar(Long id);
+    void deleteCar(int id);
 
 
 

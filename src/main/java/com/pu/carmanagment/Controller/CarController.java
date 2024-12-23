@@ -29,7 +29,7 @@ public class CarController {
     @GetMapping("/{id}")
     @ApiResponse(responseCode = "200", description = "Success")
     @ApiResponse(responseCode = "400", description = "Bad request")
-    public ResponseEntity<ResponseCarDTO> getCarById(@PathVariable Long id) {
+    public ResponseEntity<ResponseCarDTO> getCarById(@PathVariable int id) {
 
         return new ResponseEntity<>(carService.findCarById(id), HttpStatus.OK);
     }
@@ -37,7 +37,7 @@ public class CarController {
     @PostMapping
     @ApiResponse(responseCode = "200", description = "Success")
     @ApiResponse(responseCode = "400", description = "Bad request")
-    public ResponseEntity<CreateCarDTO> createCar(@RequestBody CreateCarDTO car) {
+    public ResponseEntity<CreateCarDTO> createCar(@RequestBody @Valid CreateCarDTO car) {
         return new ResponseEntity<>(carService.createCar(car), HttpStatus.OK);
     }
 
@@ -46,7 +46,7 @@ public class CarController {
     @ApiResponse(responseCode = "400", description = "Bad request")
     @ApiResponse(responseCode = "404", description = "Resource Not Found")
 
-    public void deleteCar(@PathVariable Long id) {
+    public void deleteCar(@PathVariable int id) {
         carService.deleteCar(id);
     }
 
@@ -64,7 +64,7 @@ public class CarController {
     @ApiResponse(responseCode = "400", description = "Bad request")
     @ApiResponse(responseCode = "404", description = "Resource Not Found")
 
-    public ResponseEntity<UpdateCarDTO> updateGarage(@PathVariable Long id, @Valid @RequestBody UpdateCarDTO car) {
+    public ResponseEntity<UpdateCarDTO> updateGarage(@PathVariable int id, @Valid @RequestBody UpdateCarDTO car) {
         UpdateCarDTO car1 = carService.updateCar(id, car);
         return ResponseEntity.ok(car1);
     }

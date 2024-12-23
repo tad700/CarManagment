@@ -32,7 +32,7 @@ public class GarageController {
     @ApiResponse(responseCode = "200", description = "Success")
     @ApiResponse(responseCode = "400", description = "Bad request")
 
-    public ResponseEntity<ResponseGarageDTO> getGarage(@PathVariable Long id) {
+    public ResponseEntity<ResponseGarageDTO> getGarage(@PathVariable Integer id) {
         return new ResponseEntity<>(garageService.findGarageById(id), HttpStatus.OK);
     }
 
@@ -56,7 +56,7 @@ public class GarageController {
     @ApiResponse(responseCode = "200", description = "Success")
     @ApiResponse(responseCode = "404", description = "Resource Not Found")
 
-    public ResponseEntity<UpdateGarageDTO> updateGarage(@PathVariable Long id, @RequestBody @Valid UpdateGarageDTO garage) {
+    public ResponseEntity<UpdateGarageDTO> updateGarage(@PathVariable Integer id, @RequestBody @Valid UpdateGarageDTO garage) {
         UpdateGarageDTO garage1 = garageService.updateGarage(id, garage);
         return ResponseEntity.ok(garage1);
 
@@ -71,7 +71,7 @@ public class GarageController {
             @ApiResponse(responseCode = "400", description = "Bad request"),
             @ApiResponse(responseCode = "404", description = "Resource Not Found")
     })
-    public void deleteGarage(@PathVariable Long id) {
+    public void deleteGarage(@PathVariable Integer id) {
         garageService.deleteGarage(id);
     }
 }

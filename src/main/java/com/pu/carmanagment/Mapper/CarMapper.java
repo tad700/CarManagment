@@ -4,6 +4,9 @@ import com.pu.carmanagment.Dto.CarDTOs.CreateCarDTO;
 import com.pu.carmanagment.Dto.CarDTOs.ResponseCarDTO;
 import com.pu.carmanagment.Dto.CarDTOs.UpdateCarDTO;
 import com.pu.carmanagment.Entity.Car;
+import com.pu.carmanagment.Entity.Garage;
+
+import java.util.stream.Collectors;
 
 public class CarMapper {
 
@@ -15,7 +18,7 @@ public class CarMapper {
                     car.getModel(),
                     car.getProductionYear(),
                     car.getLicensePlate(),
-                    car.getGarages()
+                    car.getGarages().stream().map(Garage::getId).collect(Collectors.toList())
             );
         }
     public static UpdateCarDTO mapToUpdateCarDTO(Car car) {
@@ -39,14 +42,14 @@ public class CarMapper {
         );
     }
 
-    public static Car mapToCar(CreateCarDTO updateCarDto) {
+    public static Car mapToCar(ResponseCarDTO responseCarDTO) {
         return new Car(
-                updateCarDto.getId(),
-                updateCarDto.getMake(),
-                updateCarDto.getModel(),
-                updateCarDto.getProductionYear(),
-                updateCarDto.getLicensePlate(),
-                updateCarDto.getGarages()
+                responseCarDTO.getId(),
+                responseCarDTO.getMake(),
+                responseCarDTO.getModel(),
+                responseCarDTO.getProductionYear(),
+                responseCarDTO.getLicensePlate(),
+                responseCarDTO.getGarages()
         );
     }
 }

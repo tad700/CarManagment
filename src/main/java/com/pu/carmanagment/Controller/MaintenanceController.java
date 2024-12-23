@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.YearMonth;
 import java.util.List;
 
 @RestController
@@ -25,16 +26,16 @@ public class MaintenanceController {
     @ApiResponse(responseCode = "400", description = "Bad request")
     @ApiResponse(responseCode = "404", description = "Resource Not Found")
 
-    public ResponseEntity<ResponseMaintenanceDTO> getMaintenance(@PathVariable Long id) {
+    public ResponseEntity<ResponseMaintenanceDTO> getMaintenance(@PathVariable Integer id) {
         return new ResponseEntity<>(maintenanceService.findGarageById(id), HttpStatus.OK);
     }
 
-    @GetMapping
+    @GetMapping("")
     @ApiResponse(responseCode = "200", description = "Success")
     @ApiResponse(responseCode = "400", description = "Bad request")
 
-    public ResponseEntity<List<ResponseMaintenanceDTO>> listAll() {
-        return new ResponseEntity<>(maintenanceService.findAll(), HttpStatus.OK);
+    public ResponseEntity<List<ResponseMaintenanceDTO>> listAll(Integer carId, Integer garageId, YearMonth startDate,YearMonth endDate) {
+        return new ResponseEntity<>(maintenanceService.getMaintenance(carId, garageId, startDate, endDate), HttpStatus.OK);
     }
 
     @PostMapping()
@@ -50,7 +51,7 @@ public class MaintenanceController {
     @ApiResponse(responseCode = "400", description = "Bad request")
     @ApiResponse(responseCode = "404", description = "Resource Not Found")
 
-    public ResponseEntity<UpdateMaintenanceDTO> updateMaintenance(@PathVariable Long id, @RequestBody @Valid UpdateMaintenanceDTO updateMaintenanceDTO) {
+    public ResponseEntity<UpdateMaintenanceDTO> updateMaintenance(@PathVariable Integer id, @RequestBody @Valid UpdateMaintenanceDTO updateMaintenanceDTO) {
         UpdateMaintenanceDTO maintenance1 = maintenanceService.updateMaintenance(id, updateMaintenanceDTO);
         return ResponseEntity.ok(maintenance1);
 
@@ -61,7 +62,7 @@ public class MaintenanceController {
     @ApiResponse(responseCode = "400", description = "Bad request")
     @ApiResponse(responseCode = "404", description = "Resource Not Found")
 
-    public ResponseEntity<String> deleteMaintenance(Long id) {
+    public ResponseEntity<String> deleteMaintenance(Integer id) {
         maintenanceService.deleteMaintenance(id);
         return new ResponseEntity<>("Succesfully Deleted maintenance with id" + id, HttpStatus.OK);
     }

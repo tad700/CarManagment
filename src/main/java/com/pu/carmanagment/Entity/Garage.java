@@ -15,7 +15,7 @@ import lombok.Setter;
 public class Garage {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private int id;
     private String name;
     private String location;
     private String city;

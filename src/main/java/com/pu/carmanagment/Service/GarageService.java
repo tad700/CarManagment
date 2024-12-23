@@ -9,10 +9,10 @@ import java.util.List;
 
 public interface GarageService {
 
-    ResponseGarageDTO findGarageById(Long id);
+    ResponseGarageDTO findGarageById(Integer id);
     CreateGarageDTO createGarage(CreateGarageDTO garage);
-    void deleteGarage(Long id);
+    void deleteGarage(Integer id);
     List<ResponseGarageDTO> listALl();
-    UpdateGarageDTO updateGarage(Long id, UpdateGarageDTO updatedGarage);
+    UpdateGarageDTO updateGarage(Integer id, UpdateGarageDTO updatedGarage);
 
 }

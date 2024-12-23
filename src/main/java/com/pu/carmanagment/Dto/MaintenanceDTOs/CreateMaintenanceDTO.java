@@ -20,10 +20,10 @@ public class CreateMaintenanceDTO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private Long carId;
+    private int id;
+    private int carId;
     private String serviceType;
-    private Long garageId;
+    private Integer garageId;
     LocalDate scheduledDate;
 
 }

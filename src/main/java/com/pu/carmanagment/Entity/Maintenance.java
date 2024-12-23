@@ -17,16 +17,16 @@ public class Maintenance {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
     @Transient
     private Car car;
 
-    private Long carId;
+    private int carId;
     private String carName;
 
     @Transient
     private Garage garage;
-    private Long garageId;
+    private int garageId;
     private String garageName;
 
     private String serviceType;
