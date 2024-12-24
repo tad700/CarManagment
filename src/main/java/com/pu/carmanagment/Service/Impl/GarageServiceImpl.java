@@ -1,17 +1,24 @@
 package com.pu.carmanagment.Service.Impl;
 
 import com.pu.carmanagment.Dto.GarageDTOs.CreateGarageDTO;
+import com.pu.carmanagment.Dto.GarageDTOs.GarageDailyAvailabilityReportDTO;
 import com.pu.carmanagment.Dto.GarageDTOs.ResponseGarageDTO;
 import com.pu.carmanagment.Dto.GarageDTOs.UpdateGarageDTO;
 import com.pu.carmanagment.Entity.Garage;
+import com.pu.carmanagment.Entity.Maintenance;
 import com.pu.carmanagment.Exception.ResourceNotFoundException;
 import com.pu.carmanagment.Mapper.GarageMapper;
 import com.pu.carmanagment.Repository.GarageRepository;
 import com.pu.carmanagment.Repository.MaintenanceRepository;
 import com.pu.carmanagment.Service.GarageService;
+import com.pu.carmanagment.Service.MaintenanceService;
+import com.sun.tools.javac.Main;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,9 +26,11 @@ import java.util.stream.Collectors;
 public class GarageServiceImpl implements GarageService {
 
     GarageRepository garageRepository;
+    MaintenanceService maintenanceService;
 
     @Autowired
-    GarageServiceImpl(GarageRepository garageRepository){
+    GarageServiceImpl(GarageRepository garageRepository,MaintenanceService maintenanceService){
+        this.maintenanceService = maintenanceService;
         this.garageRepository = garageRepository;
     }
 
@@ -76,4 +85,12 @@ public class GarageServiceImpl implements GarageService {
 
         return GarageMapper.mapToUpdateGarageDTO(garage);
     }
+
+    @Override
+    public GarageDailyAvailabilityReportDTO dailyAvailabilityReport(Integer garageId, YearMonth startDate, YearMonth endDate) {
+        return null;
+    }
+
+
 }
+

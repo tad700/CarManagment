@@ -4,6 +4,7 @@ import com.pu.carmanagment.Dto.MaintenanceDTOs.CreateMaintenanceDTO;
 import com.pu.carmanagment.Dto.MaintenanceDTOs.ResponseMaintenanceDTO;
 import com.pu.carmanagment.Dto.MaintenanceDTOs.UpdateMaintenanceDTO;
 import com.pu.carmanagment.Entity.Maintenance;
+import com.sun.tools.javac.Main;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -17,6 +18,8 @@ public interface MaintenanceService {
 
     UpdateMaintenanceDTO updateMaintenance(Integer id, UpdateMaintenanceDTO maintenance);
     void deleteMaintenance(Integer id);
+
+    List<Maintenance> getAll();
 
 
 }

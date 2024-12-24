@@ -10,6 +10,7 @@ import com.pu.carmanagment.Repository.CarRepository;
 import com.pu.carmanagment.Repository.GarageRepository;
 import com.pu.carmanagment.Repository.MaintenanceRepository;
 import com.pu.carmanagment.Service.MaintenanceService;
+import com.sun.tools.javac.Main;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -103,6 +104,15 @@ public class MaintenanceServiceImpl implements MaintenanceService {
 
     @Override
     public void deleteMaintenance(Integer id) {
+        Maintenance maintenanceToDelete = maintenanceRepository.findById(id).orElseThrow(
+                ()-> new RuntimeException("maintenance is not found with id "+id)
+        );
+        maintenanceRepository.delete(maintenanceToDelete);
+    }
+
+    @Override
+    public List<Maintenance> getAll() {
+        return maintenanceRepository.findAll();
 
     }
 }
