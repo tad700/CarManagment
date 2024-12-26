@@ -1,6 +1,7 @@
 package com.pu.carmanagment.Controller;
 
 import com.pu.carmanagment.Dto.MaintenanceDTOs.CreateMaintenanceDTO;
+import com.pu.carmanagment.Dto.MaintenanceDTOs.MonthlyRequestDTO;
 import com.pu.carmanagment.Dto.MaintenanceDTOs.ResponseMaintenanceDTO;
 import com.pu.carmanagment.Dto.MaintenanceDTOs.UpdateMaintenanceDTO;
 import com.pu.carmanagment.Service.MaintenanceService;
@@ -65,6 +66,14 @@ public class MaintenanceController {
     public ResponseEntity<String> deleteMaintenance(Integer id) {
         maintenanceService.deleteMaintenance(id);
         return new ResponseEntity<>("Succesfully Deleted maintenance with id" + id, HttpStatus.OK);
+    }
+
+    @GetMapping("monthlyRequestsReport")
+    @ApiResponse(responseCode = "200", description = "Success")
+    @ApiResponse(responseCode = "400", description = "Bad request")
+    public ResponseEntity<List<MonthlyRequestDTO>> monthlyRequestsReport(Integer garageId,YearMonth startDate,YearMonth endDate){
+        return  new ResponseEntity<>(maintenanceService.monthlyRequest(garageId,startDate,endDate),HttpStatus.OK);
+
     }
 
 }

@@ -1,6 +1,7 @@
 package com.pu.carmanagment.Service;
 
 import com.pu.carmanagment.Dto.MaintenanceDTOs.CreateMaintenanceDTO;
+import com.pu.carmanagment.Dto.MaintenanceDTOs.MonthlyRequestDTO;
 import com.pu.carmanagment.Dto.MaintenanceDTOs.ResponseMaintenanceDTO;
 import com.pu.carmanagment.Dto.MaintenanceDTOs.UpdateMaintenanceDTO;
 import com.pu.carmanagment.Entity.Maintenance;
@@ -20,6 +21,8 @@ public interface MaintenanceService {
     void deleteMaintenance(Integer id);
 
     List<Maintenance> getAll();
+
+    List<MonthlyRequestDTO> monthlyRequest(int garageId, YearMonth startDate, YearMonth endDate);
 
 
 }

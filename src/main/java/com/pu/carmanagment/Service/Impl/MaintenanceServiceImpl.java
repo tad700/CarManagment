@@ -1,6 +1,7 @@
 package com.pu.carmanagment.Service.Impl;
 
 import com.pu.carmanagment.Dto.MaintenanceDTOs.CreateMaintenanceDTO;
+import com.pu.carmanagment.Dto.MaintenanceDTOs.MonthlyRequestDTO;
 import com.pu.carmanagment.Dto.MaintenanceDTOs.ResponseMaintenanceDTO;
 import com.pu.carmanagment.Dto.MaintenanceDTOs.UpdateMaintenanceDTO;
 import com.pu.carmanagment.Entity.*;
@@ -18,6 +19,7 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -115,4 +117,24 @@ public class MaintenanceServiceImpl implements MaintenanceService {
         return maintenanceRepository.findAll();
 
     }
+
+    @Override
+    public List<MonthlyRequestDTO> monthlyRequest(int garageId, YearMonth startDate, YearMonth endDate) {
+        // Fetch maintenance records within the specified range
+        List<Maintenance> maintenances = maintenanceRepository.findByGarageIdAndDateRange(
+                garageId, startDate.atDay(1), endDate.atEndOfMonth());
+
+        // Group records by year and month, and count the requests
+        Map<YearMonth, Long> groupedRequests = maintenances.stream()
+                .collect(Collectors.groupingBy(
+                        maintenance -> YearMonth.from(maintenance.getScheduledDate()),
+                        Collectors.counting()));
+
+        // Convert the grouped data to DTOs
+        return groupedRequests.entrySet().stream()
+                .map(entry -> new MonthlyRequestDTO(entry.getKey(), entry.getValue().intValue()))
+                .collect(Collectors.toList());
+    }
+
+
 }
