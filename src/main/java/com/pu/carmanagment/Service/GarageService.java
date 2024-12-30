@@ -16,6 +16,6 @@ public interface GarageService {
     void deleteGarage(Integer id);
     List<ResponseGarageDTO> listALl();
     UpdateGarageDTO updateGarage(Integer id, UpdateGarageDTO updatedGarage);
-    GarageDailyAvailabilityReportDTO dailyAvailabilityReport(Integer garageId, YearMonth startDate,YearMonth endDate);
+    List<GarageDailyAvailabilityReportDTO> dailyAvailabilityReport(Integer garageId, YearMonth startDate,YearMonth endDate);
 
 }

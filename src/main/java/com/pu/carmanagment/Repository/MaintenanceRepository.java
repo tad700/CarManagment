@@ -17,4 +17,5 @@ public interface MaintenanceRepository extends JpaRepository<Maintenance,Integer
             @Param("garageId") int garageId,
             @Param("startDate") LocalDate startDate,
             @Param("endDate") LocalDate endDate);
+
 }

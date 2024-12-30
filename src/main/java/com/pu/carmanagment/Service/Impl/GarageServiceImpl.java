@@ -20,18 +20,22 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
 public class GarageServiceImpl implements GarageService {
 
     GarageRepository garageRepository;
+    MaintenanceRepository maintenanceRepository;
     MaintenanceService maintenanceService;
 
+
     @Autowired
-    GarageServiceImpl(GarageRepository garageRepository,MaintenanceService maintenanceService){
+    GarageServiceImpl(GarageRepository garageRepository,MaintenanceRepository maintenanceRepository,MaintenanceService maintenanceService){
         this.maintenanceService = maintenanceService;
         this.garageRepository = garageRepository;
+        this.maintenanceRepository = maintenanceRepository;
     }
 
     @Override
@@ -87,9 +91,39 @@ public class GarageServiceImpl implements GarageService {
     }
 
     @Override
-    public GarageDailyAvailabilityReportDTO dailyAvailabilityReport(Integer garageId, YearMonth startDate, YearMonth endDate) {
-        return null;
+    public List<GarageDailyAvailabilityReportDTO> dailyAvailabilityReport(Integer garageId, YearMonth startDate, YearMonth endDate) {
+        Garage garage = garageRepository.findById(garageId)
+                .orElseThrow(() -> new ResourceNotFoundException("Garage not found with id " + garageId));
+
+        List<Maintenance> maintenances = maintenanceRepository.findByGarageIdAndDateRange(
+                garageId, startDate.atDay(1), endDate.atEndOfMonth());
+
+        Map<LocalDate, Long> dailyRequests = maintenances.stream()
+                .collect(Collectors.groupingBy(
+                        Maintenance::getScheduledDate,
+                        Collectors.counting()));
+
+        List<GarageDailyAvailabilityReportDTO> dailyReport = new ArrayList<>();
+        LocalDate current = startDate.atDay(1);
+        LocalDate end = endDate.atEndOfMonth();
+
+        while (!current.isAfter(end)) {
+            int requests = dailyRequests.getOrDefault(current, 0L).intValue();
+            int availableCapacity = garage.getCapacity() - requests;
+
+            dailyReport.add(new GarageDailyAvailabilityReportDTO(
+                    current.toString(),
+                    requests,
+                    availableCapacity
+            ));
+
+            current = current.plusDays(1);
+        }
+
+        return dailyReport;
     }
+
+
 
 
 }
